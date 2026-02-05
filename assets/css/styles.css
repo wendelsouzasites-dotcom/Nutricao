@@ -362,37 +362,48 @@ ul {
    ========================================================================== */
 
 .hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 90vh;
+  background: #fafaf8;
   overflow: hidden;
 }
 
 .hero__background {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--color-bg-alt) 0%, transparent 70%);
-  z-index: 0;
+  display: none;
 }
 
 .hero__container {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  min-height: 100vh;
-  padding-top: var(--header-height);
+  display: contents;
+  padding-top: 0;
 }
 
 .hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 680px;
+  padding: var(--space-xl);
+  padding-top: calc(var(--header-height) + var(--space-xl));
   animation: fadeInUp 0.8s ease-out;
+  z-index: 1;
+}
+
+.hero__texture {
+  position: relative;
+  background-color: #f2f3ef;
+  overflow: hidden;
+}
+
+.hero__texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M300 40c90 0 180 40 220 120s20 180-40 260-160 120-260 100S40 440 40 300 120 40 300 40z' fill='%23e4e6df'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 120%;
+  opacity: 0.6;
 }
 
 /* Eyebrow text - estilo Squarespace */
@@ -1108,6 +1119,14 @@ section {
   }
 
   /* Hero mobile */
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__texture {
+    height: 200px;
+  }
+
   .hero__content {
     text-align: center;
   }
