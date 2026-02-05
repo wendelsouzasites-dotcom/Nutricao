@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!-- Portfólio Premium - Nutricionista -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Dra. Mariana Azevedo - Nutrição Premium. Atendimento humanizado e científico para sua saúde.">
+  <title>Dra. Mariana Azevedo | Nutrição Premium</title>
+
+  <!-- Google Fonts: Playfair Display + Inter com display=swap para performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ===== VARIÁVEIS CSS PREMIUM ===== */
+    :root {
+      --color-bg: #f8f5f0;
+      --color-text: #2a4b3c;
+      --color-accent: #d4a574;
+      --color-secondary: #8a9b8c;
+      --color-white: #ffffff;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Inter', sans-serif;
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+      --transition: 0.3s ease-in-out;
+      --header-height: 80px;
+    }
+
+    /* ===== RESET MODERNO ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+    }
+
+    /* ===== TIPOGRAFIA ===== */
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-heading);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+    }
+
+    h3 {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+    }
+
+    /* ===== UTILIDADES ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section {
+      padding: 5rem 0;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(248, 245, 240, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .header__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      color: var(--color-text);
+    }
+
+    .nav__list {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav__link {
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      text-decoration: none;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--color-accent);
+      transition: width var(--transition);
+    }
+
+    .nav__link:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-text);
+      margin: 5px 0;
+      transition: var(--transition);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      background: linear-gradient(135deg, var(--color-bg) 0%, #e8e4dc 100%);
+    }
+
+    .hero__content {
+      padding: 6rem 4rem;
+      max-width: 600px;
+      animation: fadeIn 1s ease;
+    }
+
+    .hero__logo {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      letter-spacing: 0.4em;
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__title {
+      margin-bottom: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .hero__subtitle {
+      font-size: 1.05rem;
+      color: var(--color-secondary);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--color-text);
+      color: var(--color-text);
+      background: transparent;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--color-text);
+      color: var(--color-bg);
+    }
+
+    .hero__image {
+      height: 100vh;
+      background: linear-gradient(180deg, var(--color-secondary) 0%, transparent 60%),
+        url('https://picsum.photos/800/1200?grayscale&blur=1');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .hero__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--color-bg) 0%, transparent 30%);
+    }
+
+    /* ===== SERVIÇOS ===== */
+    .services__header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .services__header h2 {
+      margin-bottom: 1rem;
+    }
+
+    .services__header p {
+      color: var(--color-secondary);
+      font-size: 1.05rem;
+    }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--color-white);
+      padding: 2.5rem 2rem;
+      border-radius: 4px;
+      box-shadow: var(--shadow-card);
+      border-top: 3px solid var(--color-accent);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .service-card__icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.5rem;
+      stroke: var(--color-accent);
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-card__icon {
+      transform: scale(1.1);
+    }
+
+    .service-card h3 {
+      margin-bottom: 1rem;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--color-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card__cta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      text-decoration: none;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-card__cta {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .service-card__cta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ===== COMO TRABALHO ===== */
+    .work__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--color-accent);
+    }
+
+    .timeline__item {
+      position: relative;
+      padding-bottom: 2.5rem;
+      padding-left: 2rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease;
+    }
+
+    .timeline__item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline__marker {
+      position: absolute;
+      left: -2rem;
+      top: 0;
+      width: 13px;
+      height: 13px;
+      background: var(--color-bg);
+      border: 2px solid var(--color-accent);
+      border-radius: 50%;
+    }
+
+    .timeline__item h4 {
+      margin-bottom: 0.5rem;
+      font-family: var(--font-heading);
+    }
+
+    .timeline__item p {
+      font-size: 0.95rem;
+      color: var(--color-secondary);
+    }
+
+    .work__image {
+      height: 500px;
+      border-radius: 4px;
+      background: url('https://picsum.photos/600/500?grayscale') center/cover;
+      position: relative;
+    }
+
+    .work__image::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border: 1px solid var(--color-accent);
+      border-radius: 4px;
+      opacity: 0.3;
+    }
+
+    /* ===== DEPOIMENTOS CARROSSEL ===== */
+    .testimonials {
+      background: var(--color-white);
+    }
+
+    .testimonials__header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .carousel {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .carousel__track {
+      display: flex;
+      transition: opacity 0.5s ease;
+    }
+
+    .testimonial {
+      min-width: 100%;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .testimonial.active {
+      opacity: 1;
+    }
+
+    .testimonial__quote {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .testimonial__quote::before {
+      content: '"';
+      position: absolute;
+      left: -1rem;
+      top: -0.5rem;
+      font-size: 4rem;
+      color: var(--color-accent);
+      opacity: 0.2;
+      font-family: var(--font-heading);
+    }
+
+    .testimonial__author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .testimonial__avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid var(--color-accent);
+      object-fit: cover;
+    }
+
+    .testimonial__info h5 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+    }
+
+    .testimonial__info span {
+      font-size: 0.8rem;
+      color: var(--color-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    .carousel__nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .carousel__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-secondary);
+      opacity: 0.3;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .carousel__dot.active {
+      opacity: 1;
+      background: var(--color-accent);
+    }
+
+    .carousel__arrows {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .carousel__arrow {
+      background: none;
+      border: 1px solid var(--color-secondary);
+      color: var(--color-secondary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel__arrow:hover {
+      background: var(--color-text);
+      border-color: var(--color-text);
+      color: var(--color-bg);
+    }
+
+    .carousel__arrow svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ===== CONTATO ===== */
+    .contact {
+      text-align: center;
+      background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-white) 100%);
+    }
+
+    .contact h2 {
+      margin-bottom: 1rem;
+    }
+
+    .contact p {
+      color: var(--color-secondary);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    .contact__whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem;
+      background: var(--color-text);
+      color: var(--color-bg);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      transition: var(--transition);
+    }
+
+    .contact__whatsapp:hover {
+      background: var(--color-accent);
+      transform: scale(1.02);
+    }
+
+    .contact__whatsapp svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 3rem 0;
+      border-top: 1px solid rgba(42, 75, 60, 0.1);
+      text-align: center;
+    }
+
+    .footer__logo {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      letter-spacing: 0.3em;
+      margin-bottom: 1rem;
+    }
+
+    .footer__crn {
+      font-size: 0.8rem;
+      color: var(--color-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero__content {
+        padding: 8rem 2rem 4rem;
+      }
+
+      .hero__image {
+        height: 50vh;
+      }
+
+      .services__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .work__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .work__image {
+        height: 400px;
+        order: -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        background: var(--color-bg);
+        padding: 2rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .nav.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .nav__list {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .services__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonial__quote {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <div class="logo">MA • NUTRIÇÃO</div>
+      <nav class="nav" id="nav">
+        <ul class="nav__list">
+          <li><a href="#servicos" class="nav__link">Serviços</a></li>
+          <li><a href="#como-trabalho" class="nav__link">Como Trabalho</a></li>
+          <li><a href="#depoimentos" class="nav__link">Depoimentos</a></li>
+          <li><a href="#contato" class="nav__link">Contato</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero__content">
+      <p class="hero__logo">DRA. MARIANA AZEVEDO</p>
+      <h1>Nutrição que transforma sua relação com a vida</h1>
+      <p class="hero__subtitle">Atendimento premium com base científica e acolhimento humano, para resultados que
+        permanecem.</p>
+      <a href="#contato" class="btn">
+        Agendar consulta
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+    <div class="hero__image" role="img" aria-label="Ambiente de consultório premium"></div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section services" id="servicos">
+    <div class="container">
+      <div class="services__header fade-up">
+        <h2>O que ofereço</h2>
+        <p>Atendimento personalizado para suas necessidades específicas</p>
+      </div>
+      <div class="services__grid">
+        <!-- Card 1 -->
+        <article class="service-card fade-up">
+          <svg class="service-card__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+          <h3>Consulta Nutricional</h3>
+          <p>Avaliação completa com análise de composição corporal e plano alimentar personalizado.</p>
+          <a href="#contato" class="service-card__cta">
+            Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </article>
+        <!-- Card 2 -->
+        <article class="service-card fade-up">
+          <svg class="service-card__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+          </svg>
+          <h3>Saúde Intestinal</h3>
+          <p>Protocolos específicos para equilíbrio da microbiota e melhora da digestão.</p>
+          <a href="#contato" class="service-card__cta">
+            Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </article>
+        <!-- Card 3 -->
+        <article class="service-card fade-up">
+          <svg class="service-card__icon" viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          </svg>
+          <h3>Emagrecimento Consciente</h3>
+          <p>Perda de peso sustentável sem dietas extremas, com foco em hábitos permanentes.</p>
+          <a href="#contato" class="service-card__cta">
+            Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO TRABALHO -->
+  <section class="section work" id="como-trabalho">
+    <div class="container">
+      <div class="work__grid">
+        <div class="work__content">
+          <h2 class="fade-up">Como trabalho</h2>
+          <div class="timeline">
+            <div class="timeline__item">
+              <div class="timeline__marker"></div>
+              <h4>Escuta atenta</h4>
+              <p>Cada pessoa é única. Entendo sua rotina, preferências e objetivos antes de qualquer indicação.</p>
+            </div>
+            <div class="timeline__item">
+              <div class="timeline__marker"></div>
+              <h4>Análise personalizada</h4>
+              <p>Exames, histórico e comportamento alimentar são avaliados com atenção.</p>
+            </div>
+            <div class="timeline__item">
+              <div class="timeline__marker"></div>
+              <h4>Plano individualizado</h4>
+              <p>Alimentação que respeita sua realidade, não uma dieta genérica.</p>
+            </div>
+            <div class="timeline__item">
+              <div class="timeline__marker"></div>
+              <h4>Acompanhamento contínuo</h4>
+              <p>Estou presente em cada etapa, ajustando o caminho conforme necessário.</p>
+            </div>
+          </div>
+        </div>
+        <div class="work__image fade-up" role="img" aria-label="Alimentos naturais e saudáveis"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS CARROSSEL -->
+  <section class="section testimonials" id="depoimentos">
+    <div class="container">
+      <div class="testimonials__header fade-up">
+        <h2>Depoimentos</h2>
+        <p>O que dizem quem já transformou sua relação com a alimentação</p>
+      </div>
+      <div class="carousel fade-up">
+        <div class="carousel__track" id="carouselTrack">
+          <!-- Slide 1 -->
+          <div class="testimonial active">
+            <blockquote class="testimonial__quote">A Dra. Mariana mudou completamente minha relação com a comida. Depois
+              de anos fazendo dietas que não funcionavam, encontrei alguém que realmente me ouviu.</blockquote>
+            <div class="testimonial__author">
+              <img src="https://picsum.photos/50/50?random=1" alt="Carla M." class="testimonial__avatar">
+              <div class="testimonial__info">
+                <h5>Carla Mendes</h5>
+                <span>Ipatinga - MG</span>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="testimonial">
+            <blockquote class="testimonial__quote">Profissional extraordinária. O acompanhamento para minha saúde
+              intestinal foi transformador. Meus exames nunca estuvieron tão bons.</blockquote>
+            <div class="testimonial__author">
+              <img src="https://picsum.photos/50/50?random=2" alt="Lucas M." class="testimonial__avatar">
+              <div class="testimonial__info">
+                <h5>Lucas Martins</h5>
+                <span>Timóteo - MG</span>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="testimonial">
+            <blockquote class="testimonial__quote">Como mãe de três filhos, achei que nunca conseguiria ter uma
+              alimentação equilibrada. A Dra. me mostrou que é possível.</blockquote>
+            <div class="testimonial__author">
+              <img src="https://picsum.photos/50/50?random=3" alt="Fernanda S." class="testimonial__avatar">
+              <div class="testimonial__info">
+                <h5>Fernanda Silva</h5>
+                <span>Ipatinga - MG</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel__nav" id="carouselDots"></div>
+        <div class="carousel__arrows">
+          <button class="carousel__arrow" id="prevBtn" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="carousel__arrow" id="nextBtn" aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section contact" id="contato">
+    <div class="container fade-up">
+      <h2>Vamos transformar sua vida?</h2>
+      <p>Agende sua consulta e comece uma nova jornada com a nutrição.</p>
+      <a href="https://wa.me/55SEUNUMERO" class="contact__whatsapp" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">DRA. MARIANA AZEVEDO</div>
+      <p class="footer__crn">CRN-9 12345 • Ipatinga - Minas Gerais</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    /* ===== MENU MOBILE TOGGLE ===== */
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('nav');
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+    document.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        menuToggle.classList.remove('active');
+      });
+    });
+
+    /* ===== SCROLL ANIMATIONS COM INTERSECTION OBSERVER ===== */
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.fade-up, .timeline__item').forEach(el => observer.observe(el));
+
+    /* ===== CARROSSEL DEPOIMENTOS COM AUTO-PLAY ===== */
+    const track = document.getElementById('carouselTrack');
+    const testimonials = track.querySelectorAll('.testimonial');
+    const dotsContainer = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+    let autoPlayInterval;
+    const autoPlayDelay = 5000;
+
+    // Criar dots
+    testimonials.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.classList.add('carousel__dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+    const dots = dotsContainer.querySelectorAll('.carousel__dot');
+
+    function goToSlide(index) {
+      testimonials.forEach((t, i) => t.classList.toggle('active', i === index));
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      currentIndex = index;
+      resetAutoPlay();
+    }
+
+    function nextSlide() {
+      goToSlide((currentIndex + 1) % testimonials.length);
+    }
+
+    function prevSlide() {
+      goToSlide((currentIndex - 1 + testimonials.length) % testimonials.length);
+    }
+
+    function startAutoPlay() {
+      autoPlayInterval = setInterval(nextSlide, autoPlayDelay);
+    }
+
+    function resetAutoPlay() {
+      clearInterval(autoPlayInterval);
+      startAutoPlay();
+    }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    track.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    track.addEventListener('mouseleave', startAutoPlay);
+    startAutoPlay();
+
+    /* ===== HEADER SCROLL EFFECT ===== */
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+      header.style.boxShadow = window.scrollY > 50 ? 'var(--shadow-card)' : 'none';
+    });
+  </script>
+</body>
+
+</html>
