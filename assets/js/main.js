@@ -1,253 +1,207 @@
 /**
  * ==========================================================================
  * NUTRICIONISTA - SITE INSTITUCIONAL PREMIUM
- * JavaScript leve para interações básicas
+ * JavaScript para interações básicas + Injeção de conteúdo
  * ==========================================================================
  */
 
 (function () {
   'use strict';
 
-  /**
-   * ==========================================================================
-   * 1. UTILIDADES
-   * ==========================================================================
-   */
+  // ==========================================
+  // 1. INJEÇÃO DE CONTEÚDO (来自 content.js)
+  // ==========================================
+  function injectContent() {
+    if (typeof siteContent === 'undefined') {
+      console.error('content.js não carregado!');
+      return;
+    }
 
-  /**
-   * Verifica se elemento está visível no viewport
-   * @param {HTMLElement} element 
-   * @returns {boolean}
-   */
+    // Hero
+    setText('hero-eyebrow', siteContent.heroEyebrow);
+    setText('hero-title', siteContent.heroTitle);
+    setText('hero-subtitle', siteContent.heroSubtitle);
+    setText('hero-location', siteContent.heroLocation);
+
+    // Sobre
+    setText('about-title', siteContent.aboutTitle);
+    setText('about-text', siteContent.aboutText);
+
+    // Credenciais
+    setText('crn', siteContent.crn);
+    setText('formation', siteContent.formation);
+    setText('loc', siteContent.location);
+    setText('exp', siteContent.experience);
+
+    // Abordagem
+    setText('approach-title', siteContent.approachTitle);
+    setText('approach-intro', siteContent.approachIntro);
+
+    // Steps
+    siteContent.steps.forEach((step, index) => {
+      setText(`step-${index + 1}-title`, step.title);
+      setText(`step-${index + 1}-desc`, step.description);
+    });
+
+    // Principles
+    const principlesList = document.getElementById('principles-list');
+    if (principlesList) {
+      principlesList.innerHTML = siteContent.principles.map(p =>
+        `<li class="principles__item"><i data-feather="check"></i><span>${p}</span></li>`
+      ).join('');
+    }
+
+    // Serviços
+    setText('services-title', siteContent.servicesTitle);
+    setText('services-subtitle', siteContent.servicesSubtitle);
+
+    siteContent.services.forEach((service, index) => {
+      setText(`service-${index + 1}-title`, service.title);
+      setText(`service-${index + 1}-desc`, service.description);
+      const badge = document.getElementById(`service-${index + 1}-badge`);
+      if (badge) {
+        badge.textContent = service.badge || '';
+        badge.style.display = service.badge ? 'block' : 'none';
+      }
+    });
+
+    // Depoimentos
+    setText('testimonials-title', siteContent.testimonialsTitle);
+    setText('testimonials-subtitle', siteContent.testimonialsSubtitle);
+
+    siteContent.testimonials.forEach((t, index) => {
+      setText(`testimonial-${index + 1}-quote`, `"${t.quote}"`);
+      setText(`testimonial-${index + 1}-name`, `${t.name}, ${t.age}`);
+      setText(`testimonial-${index + 1}-location`, t.location);
+      const avatar = document.getElementById(`testimonial-${index + 1}-avatar`);
+      if (avatar) avatar.textContent = t.name.charAt(0);
+    });
+
+    // Contato
+    setText('contact-title', siteContent.contactTitle);
+    setText('contact-text', siteContent.contactText);
+    const email = document.getElementById('contact-email');
+    if (email) {
+      email.textContent = siteContent.contactEmail;
+      email.href = `mailto:${siteContent.contactEmail}`;
+    }
+    setText('contact-note', siteContent.contactNote);
+
+    // Footer
+    setText('footer-tagline', siteContent.footerTagline);
+
+    console.log('Conteúdo injetado com sucesso!');
+  }
+
+  function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  // ==========================================
+  // 2. UTILIDADES
+  // ==========================================
   function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-
-    return (
-      rect.top <= windowHeight * 0.85 &&
-      rect.bottom >= 0 &&
-      rect.left <= windowWidth &&
-      rect.right >= 0
-    );
+    return rect.top <= windowHeight * 0.85 && rect.bottom >= 0;
   }
 
-  /**
-   * Debounce para otimizar eventos de scroll/resize
-   * @param {Function} func 
-   * @param {number} wait 
-   * @returns {Function}
-   */
   function debounce(func, wait) {
     let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
+    return function (...args) {
       clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+      timeout = setTimeout(() => func.apply(this, args), wait);
     };
   }
 
-  /**
-   * ==========================================================================
-   * 2. MENU MOBILE
-   * ==========================================================================
-   */
+  // ==========================================
+  // 3. MENU MOBILE
+  // ==========================================
   const navToggle = document.getElementById('navToggle');
   const nav = document.getElementById('nav');
-  const navLinks = document.querySelectorAll('.nav__link');
 
   function toggleMenu() {
     nav.classList.toggle('active');
     navToggle.classList.toggle('active');
-
-    // Alterna ícone menu/close
     const icon = navToggle.querySelector('i');
     if (nav.classList.contains('active')) {
       icon.setAttribute('data-feather', 'x');
     } else {
       icon.setAttribute('data-feather', 'menu');
     }
-
-    // Re-inicializa feather icons
-    if (typeof feather !== 'undefined') {
-      feather.replace();
-    }
-  }
-
-  function closeMenu() {
-    nav.classList.remove('active');
-    navToggle.classList.remove('active');
-    const icon = navToggle.querySelector('i');
-    if (icon) {
-      icon.setAttribute('data-feather', 'menu');
-      if (typeof feather !== 'undefined') {
-        feather.replace();
-      }
-    }
+    if (typeof feather !== 'undefined') feather.replace();
   }
 
   if (navToggle && nav) {
     navToggle.addEventListener('click', toggleMenu);
-
-    // Fecha menu ao clicar em um link
-    navLinks.forEach(link => {
-      link.addEventListener('click', closeMenu);
+    document.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
     });
-
-    // Fecha menu ao clicar fora
     document.addEventListener('click', (e) => {
       if (!nav.contains(e.target) && !navToggle.contains(e.target)) {
-        closeMenu();
+        nav.classList.remove('active');
+        navToggle.classList.remove('active');
       }
     });
   }
 
-  /**
-   * ==========================================================================
-   * 3. HEADER FIXO COM EFEITO DE SCROLL
-   * ==========================================================================
-   */
+  // ==========================================
+  // 4. HEADER FIXO
+  // ==========================================
   const header = document.getElementById('header');
+  window.addEventListener('scroll', debounce(() => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  }, 10));
 
-  function handleScroll() {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }
-
-  // Otimização: usa debounce para não executar em cada pixel scrollado
-  window.addEventListener('scroll', debounce(handleScroll, 10));
-
-  /**
-   * ==========================================================================
-   * 4. SCROLL SUAVE PARA ANCORAS
-   * ==========================================================================
-   */
+  // ==========================================
+  // 5. SCROLL SUAVE
+  // ==========================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
-
-      // Ignora links que só começam com # mas não apontam para elemento
       if (href === '#') return;
-
       const target = document.querySelector(href);
-
       if (target) {
         e.preventDefault();
-
-        // Calcula posição considerando header fixo
         const headerHeight = header.offsetHeight;
-        const targetPosition = target.offsetTop - headerHeight;
-
         window.scrollTo({
-          top: targetPosition,
+          top: target.offsetTop - headerHeight,
           behavior: 'smooth'
         });
       }
     });
   });
 
-  /**
-   * ==========================================================================
-   * 5. ANIMAÇÕES NO SCROLL (Fade In)
-   * ==========================================================================
-   */
-  const fadeElements = document.querySelectorAll('.fade-in');
+  // ==========================================
+  // 6. ANIMAÇÕES NO SCROLL
+  // ==========================================
+  function initFadeAnimations() {
+    document.querySelectorAll('.about__content, .about__image-wrapper, .service-card, .step, .testimonial, .approach__content, .approach__principles, .contact__content').forEach(el => {
+      el.classList.add('fade-in');
+    });
+  }
 
   function handleFadeAnimations() {
-    fadeElements.forEach(element => {
-      if (isInViewport(element)) {
-        element.classList.add('visible');
-      }
+    document.querySelectorAll('.fade-in').forEach(el => {
+      if (isInViewport(el)) el.classList.add('visible');
     });
   }
 
-  // Aplica classe fade-in a elementos que devem ser animados
-  function initFadeAnimations() {
-    const sections = document.querySelectorAll(
-      '.about__content, .about__image-wrapper, ' +
-      '.service-card, .step, .testimonial, ' +
-      '.approach__content, .approach__principles, ' +
-      '.contact__content'
-    );
-
-    sections.forEach(section => {
-      section.classList.add('fade-in');
-    });
-  }
-
-  // Inicializa e verifica no scroll
   initFadeAnimations();
   window.addEventListener('scroll', debounce(handleFadeAnimations, 50));
-
-  // Verifica uma vez ao carregar (para elementos já visíveis)
   handleFadeAnimations();
 
-  /**
-   * ==========================================================================
-   * 6. WHATSAPP CTA - INTERAÇÃO
-   * ==========================================================================
-   */
-  const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
-
-  whatsappLinks.forEach(link => {
-    link.addEventListener('click', function () {
-      // Opcional: tracking analítico
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'click', {
-          'event_category': 'whatsapp',
-          'event_label': 'conversão'
-        });
-      }
-    });
-  });
-
-  /**
-   * ==========================================================================
-   * 7. OBSERVADOR DE INTERSEÇÃO (Lazy loading avançado)
-   * ==========================================================================
-   */
-  if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-          }
-          img.classList.add('loaded');
-          observer.unobserve(img);
-        }
-      });
-    }, {
-      rootMargin: '50px 0px',
-      threshold: 0.1
-    });
-
-    // Observar imagens com lazy loading
-    document.querySelectorAll('img[data-src]').forEach(img => {
-      imageObserver.observe(img);
-    });
-  }
-
-  /**
-   * ==========================================================================
-   * 8. INICIALIZAÇÃO FINAL
-   * ==========================================================================
-   */
+  // ==========================================
+  // 7. INICIALIZAÇÃO
+  // ==========================================
   document.addEventListener('DOMContentLoaded', function () {
-    // Garante que feather icons estão renderizados
-    if (typeof feather !== 'undefined') {
-      feather.replace();
-    }
-
-    console.log('Site da Nutricionista inicializado com sucesso!');
+    injectContent();
+    if (typeof feather !== 'undefined') feather.replace();
+    console.log('Site inicializado!');
   });
 
 })();
