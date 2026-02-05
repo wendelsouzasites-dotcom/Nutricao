@@ -399,11 +399,11 @@ ul {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M300 40c90 0 180 40 220 120s20 180-40 260-160 120-260 100S40 440 40 300 120 40 300 40z' fill='%23e4e6df'/%3E%3C/svg%3E");
+  background-image: url("../images/taylor-kiser-6hxK5l-sHys-unsplash.jpg");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 120%;
-  opacity: 0.6;
+  background-size: cover;
+  opacity: 0.9;
 }
 
 /* Eyebrow text - estilo Squarespace */
